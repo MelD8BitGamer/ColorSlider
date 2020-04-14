@@ -63,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="126.5625"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings SlidersVC-->
         <scene sceneID="Jzm-4K-zUb">
             <objects>
-                <viewController id="meh-BZ-J6P" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsSlidersVC" id="meh-BZ-J6P" customClass="SettingsSlidersVC" customModule="ColorSlider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BJg-Ud-nAE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,6 +75,9 @@
                                 <rect key="frame" x="48" y="161" width="318" height="31"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="colorSliderUsed:" destination="meh-BZ-J6P" eventType="valueChanged" id="VhN-5f-dzY"/>
+                                </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="BtD-fZ-RDB">
                                 <rect key="frame" x="48" y="278" width="318" height="31"/>
@@ -83,10 +86,16 @@
                             </slider>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ae3-z1-iVK">
                                 <rect key="frame" x="160" y="572" width="94" height="32"/>
+                                <connections>
+                                    <action selector="stepperPressed:" destination="meh-BZ-J6P" eventType="valueChanged" id="Z0L-9F-NQd"/>
+                                </connections>
                             </stepper>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Za-Qo-nzS">
                                 <rect key="frame" x="169" y="674" width="76" height="75"/>
                                 <state key="normal" title="Button" image="reset"/>
+                                <connections>
+                                    <action selector="resetButton:" destination="meh-BZ-J6P" eventType="touchUpInside" id="r9r-C7-Akb"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESET" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8jS-RJ-DVj">
                                 <rect key="frame" x="163" y="757" width="88" height="20"/>
@@ -164,6 +173,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6OO-8X-2ST"/>
                     </view>
+                    <connections>
+                        <outlet property="blueLabel" destination="Gjx-v1-pOn" id="3l4-3K-jcW"/>
+                        <outlet property="blueSlider" destination="BtD-fZ-RDB" id="oAg-pb-K1D"/>
+                        <outlet property="brightnessLabel" destination="Fci-WS-TND" id="Rbc-fN-lv5"/>
+                        <outlet property="brightnessStepper" destination="ae3-z1-iVK" id="xok-du-0D3"/>
+                        <outlet property="greenLabel" destination="e22-bv-j2q" id="ut6-1V-7I2"/>
+                        <outlet property="greenSlider" destination="the-9R-F87" id="1Tc-cX-77b"/>
+                        <outlet property="redLabel" destination="WMk-lm-ZuY" id="ntL-iC-kV5"/>
+                        <outlet property="redSlider" destination="fKi-tt-XJz" id="fz8-2x-fEQ"/>
+                        <outlet property="resetButton" destination="9Za-Qo-nzS" id="cUc-qx-z2h"/>
+                        <outlet property="resetLabel" destination="8jS-RJ-DVj" id="OM2-lu-5Af"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mQq-Q1-fav" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

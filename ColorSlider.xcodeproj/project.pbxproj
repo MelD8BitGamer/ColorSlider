@@ -15,6 +15,7 @@
 		4D1E88F12445F55D009C907B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D1E88EF2445F55D009C907B /* LaunchScreen.storyboard */; };
 		4D1E88FC2445F55E009C907B /* ColorSliderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E88FB2445F55E009C907B /* ColorSliderTests.swift */; };
 		4D1E89072445F5AF009C907B /* CrayonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E89062445F5AF009C907B /* CrayonModel.swift */; };
+		4D1E890D2446045C009C907B /* SettingsSlidersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E890C2446045C009C907B /* SettingsSlidersVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		4D1E88FB2445F55E009C907B /* ColorSliderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSliderTests.swift; sourceTree = "<group>"; };
 		4D1E88FD2445F55E009C907B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D1E89062445F5AF009C907B /* CrayonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrayonModel.swift; sourceTree = "<group>"; };
+		4D1E890C2446045C009C907B /* SettingsSlidersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsSlidersVC.swift; path = ColorSlider/Views/SettingsSlidersVC.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		4D1E89092445F5CD009C907B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D1E890C2446045C009C907B /* SettingsSlidersVC.swift */,
 				4D1E88E82445F559009C907B /* ColorList.swift */,
 			);
 			path = Controllers;
@@ -237,6 +240,7 @@
 			files = (
 				4D1E88E92445F559009C907B /* ColorList.swift in Sources */,
 				4D1E89072445F5AF009C907B /* CrayonModel.swift in Sources */,
+				4D1E890D2446045C009C907B /* SettingsSlidersVC.swift in Sources */,
 				4D1E88E52445F559009C907B /* AppDelegate.swift in Sources */,
 				4D1E88E72445F559009C907B /* SceneDelegate.swift in Sources */,
 			);
