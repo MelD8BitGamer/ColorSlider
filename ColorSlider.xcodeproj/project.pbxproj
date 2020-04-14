@@ -16,6 +16,7 @@
 		4D1E88FC2445F55E009C907B /* ColorSliderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E88FB2445F55E009C907B /* ColorSliderTests.swift */; };
 		4D1E89072445F5AF009C907B /* CrayonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E89062445F5AF009C907B /* CrayonModel.swift */; };
 		4D1E890D2446045C009C907B /* SettingsSlidersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E890C2446045C009C907B /* SettingsSlidersVC.swift */; };
+		4D1E890F24461C0A009C907B /* ColorCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E890E24461C0A009C907B /* ColorCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		4D1E88FD2445F55E009C907B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D1E89062445F5AF009C907B /* CrayonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrayonModel.swift; sourceTree = "<group>"; };
 		4D1E890C2446045C009C907B /* SettingsSlidersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsSlidersVC.swift; path = ColorSlider/Views/SettingsSlidersVC.swift; sourceTree = SOURCE_ROOT; };
+		4D1E890E24461C0A009C907B /* ColorCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			children = (
 				4D1E89082445F5C5009C907B /* Model */,
 				4D1E89092445F5CD009C907B /* Controllers */,
+				4D1E891024461C0F009C907B /* Cell */,
 				4D1E890A2445F5EA009C907B /* Views */,
 				4D1E890B2445F617009C907B /* SupportingFiles */,
 				4D1E88F22445F55D009C907B /* Info.plist */,
@@ -135,6 +138,14 @@
 				4D1E88EF2445F55D009C907B /* LaunchScreen.storyboard */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		4D1E891024461C0F009C907B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4D1E890E24461C0A009C907B /* ColorCollectionCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +254,7 @@
 				4D1E890D2446045C009C907B /* SettingsSlidersVC.swift in Sources */,
 				4D1E88E52445F559009C907B /* AppDelegate.swift in Sources */,
 				4D1E88E72445F559009C907B /* SceneDelegate.swift in Sources */,
+				4D1E890F24461C0A009C907B /* ColorCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,6 +10,10 @@ import UIKit
 
 class ColorList: UIViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var colorCollection: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
