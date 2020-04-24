@@ -8,6 +8,8 @@
 
 import UIKit
 //TODO: Fix Slider values
+//TODO: Fix reset
+
 struct AppKey { //we use a constant so we dont just you app color everywhere
     //when you persist it to the phone. So it saves it as app color
     static let appColorKey = "background color"
@@ -31,7 +33,7 @@ class SettingsSlidersVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       updateBackgroundColor()
-//        setSliderValue()
+       setSliderValue()
     }
     
     @IBAction func colorSliderUsed(_ sender: UISlider) {
