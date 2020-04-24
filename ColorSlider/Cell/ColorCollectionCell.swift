@@ -9,7 +9,7 @@
 import UIKit
 
 class ColorCollectionCell: UICollectionViewCell {
-    
+    //TODO: Fix black color if else statement
     
     @IBOutlet weak var colorNameLabel: UILabel!
     @IBOutlet weak var hexColorLabel: UILabel!
@@ -21,6 +21,8 @@ class ColorCollectionCell: UICollectionViewCell {
         if backgroundColor == .black {
             colorNameLabel.textColor = .white
             hexColorLabel.textColor = .white
+        } else {
+            
         }
     }
 }

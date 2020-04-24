@@ -8,14 +8,17 @@
 
 import UIKit
 
-class ColorList: UIViewController {
+class ColorListViewController: UIViewController {
     //TODO: Rid notes
-    //TODO: Fix Search bar
-    //TODO: Fix prepare for segue
+    //TODO: FIX COLLECTION CELL TEXT
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var colorCollection: UICollectionView!
     
-    var crayonColors = Crayon.allTheCrayons
+    var crayonColors = Crayon.allTheCrayons {
+        didSet {
+            colorCollection.reloadData()
+        }
+    }
     var userQuery = "" {
              //when the property observer that is attached to changes then DidSet gets triggered
              didSet { //trailing closure syntax
@@ -59,7 +62,7 @@ class ColorList: UIViewController {
     
 }
 
-extension ColorList: UICollectionViewDataSource {
+extension ColorListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return crayonColors.count
     }
@@ -68,13 +71,14 @@ extension ColorList: UICollectionViewDataSource {
         let cell = colorCollection.dequeueReusableCell(withReuseIdentifier: "thisColorCell", for: indexPath)
         let crayons = crayonColors[indexPath.row]
         cell.backgroundColor = UIColor(red: CGFloat(crayons.red/255), green: CGFloat(crayons.green/255), blue: CGFloat(crayons.blue/255), alpha: 1)
-       // cell.setUpCell.text
+     //  cell.setUpCell.text = crayons[indexPath.row]
+    
         return cell
     }
     
     
 }
-extension ColorList: UICollectionViewDelegateFlowLayout {
+extension ColorListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let interItemSpacing: CGFloat = 10
         let maxWidth = UIScreen.main.bounds.size.width //device width
@@ -93,11 +97,18 @@ extension ColorList: UICollectionViewDelegateFlowLayout {
     }
 }
     
-    extension ColorList: UISearchBarDelegate {
+    extension ColorListViewController: UISearchBarDelegate {
+//        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//              guard let updatedUserQuery = searchBar.text else {
+//                  return
+//              }//this is not necessary you are being REDUNDANT!!
+//              userQuery = updatedUserQuery //Set the value of means equal
+//          }
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-              guard let updatedUserQuery = searchBar.text else {
+              guard !searchText.isEmpty else {
+                colorCollection.reloadData()
                   return
-              }//this is not necessary you are being REDUNDANT!!
-              userQuery = updatedUserQuery //Set the value of means equal
+              }
+              userQuery = searchText
           }
 }
