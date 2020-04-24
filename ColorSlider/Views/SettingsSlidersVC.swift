@@ -21,6 +21,8 @@ class SettingsSlidersVC: UIViewController {
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var resetLabel: UILabel!
     
+    var theCrayonColors:Crayon!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
