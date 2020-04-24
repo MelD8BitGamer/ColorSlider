@@ -11,6 +11,8 @@ import UIKit
 class ColorListViewController: UIViewController {
     //TODO: Rid notes
     //TODO: FIX COLLECTION CELL TEXT
+    //TODO: FIx slider show background
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var colorCollection: UICollectionView!
     
@@ -20,34 +22,36 @@ class ColorListViewController: UIViewController {
         }
     }
     var userQuery = "" {
-             //when the property observer that is attached to changes then DidSet gets triggered
-             didSet { //trailing closure syntax
-              if userQuery.isEmpty { //if the user types and cancels it then the search bar is empty which THEN the tableview repopulates
-            crayonColors = Crayon.allTheCrayons //this repopulates the data
-              } else {
+        //when the property observer that is attached to changes then DidSet gets triggered
+        didSet { //trailing closure syntax
+            if userQuery.isEmpty { //if the user types and cancels it then the search bar is empty which THEN the tableview repopulates
+                crayonColors = Crayon.allTheCrayons //this repopulates the data
+            } else {
                 crayonColors = Crayon.allTheCrayons.filter{$0.name.lowercased().contains(userQuery.lowercased())} //this filters the data based on the user query
-              }
-          }
-      }
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let navigationBar = self.navigationController?.navigationBar
+        navigationBar?.isTranslucent = true
         colorCollection.dataSource = self
         colorCollection.delegate = self
         searchBar.delegate = self
         
     }
     override func viewWillAppear(_ animated: Bool) { //will be
-          super.viewWillAppear(true)
-          updateAppColor()
-      }
-      
-      private func updateAppColor() { //when you store something to userdefaults it will be ANY unless you TYPECAST it
-          if let colorName = UserDefaults.standard.object(forKey: AppKey.appColorKey) as? String {
-              view.backgroundColor = UIColor(named: colorName)//this saves the color and transfer it back to the Main view form the settingsVC(this will be called in viewWillAppear
-          } else {
-              
-          }
-      }
+        super.viewWillAppear(true)
+        updateAppColor()
+    }
+    
+    private func updateAppColor() { //when you store something to userdefaults it will be ANY unless you TYPECAST it
+        if let colorName = UserDefaults.standard.object(forKey: AppKey.appColorKey) as? String {
+            view.backgroundColor = UIColor(named: colorName)//this saves the color and transfer it back to the Main view form the settingsVC(this will be called in viewWillAppear
+        } else {
+            
+        }
+    }
     
     //This is a slightly different way to segue because it is a collection cell
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,8 +75,9 @@ extension ColorListViewController: UICollectionViewDataSource {
         let cell = colorCollection.dequeueReusableCell(withReuseIdentifier: "thisColorCell", for: indexPath)
         let crayons = crayonColors[indexPath.row]
         cell.backgroundColor = UIColor(red: CGFloat(crayons.red/255), green: CGFloat(crayons.green/255), blue: CGFloat(crayons.blue/255), alpha: 1)
-     //  cell.setUpCell.text = crayons[indexPath.row]
-    
+        //cell.setUpCell.text = crayons[indexPath.row]
+       
+        navigationItem.title = crayons.name
         return cell
     }
     
@@ -96,19 +101,19 @@ extension ColorListViewController: UICollectionViewDelegateFlowLayout {
         return 5
     }
 }
-    
-    extension ColorListViewController: UISearchBarDelegate {
-//        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//              guard let updatedUserQuery = searchBar.text else {
-//                  return
-//              }//this is not necessary you are being REDUNDANT!!
-//              userQuery = updatedUserQuery //Set the value of means equal
-//          }
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-              guard !searchText.isEmpty else {
-                colorCollection.reloadData()
-                  return
-              }
-              userQuery = searchText
-          }
+
+extension ColorListViewController: UISearchBarDelegate {
+    //        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    //              guard let updatedUserQuery = searchBar.text else {
+    //                  return
+    //              }//this is not necessary you are being REDUNDANT!!
+    //              userQuery = updatedUserQuery //Set the value of means equal
+    //          }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            colorCollection.reloadData()
+            return
+        }
+        userQuery = searchText
+    }
 }

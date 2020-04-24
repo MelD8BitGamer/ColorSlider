@@ -7,13 +7,14 @@
 //
 
 import UIKit
+//TODO: Fix Slider values
 struct AppKey { //we use a constant so we dont just you app color everywhere
     //when you persist it to the phone. So it saves it as app color
     static let appColorKey = "background color"
 }
 
 class SettingsSlidersVC: UIViewController {
-
+    
     @IBOutlet weak var redLabel: UILabel!
     @IBOutlet weak var redSlider: UISlider!
     @IBOutlet weak var blueLabel: UILabel!
@@ -29,17 +30,34 @@ class SettingsSlidersVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+      updateBackgroundColor()
+//        setSliderValue()
     }
     
     @IBAction func colorSliderUsed(_ sender: UISlider) {
+        view.backgroundColor = UIColor(red: CGFloat(redSlider!.value), green: CGFloat(greenSlider!.value), blue: CGFloat(blueSlider!.value), alpha: CGFloat(sender.value))
+        redLabel.text = redSlider.value.description
+        greenLabel.text = greenSlider.value.description
+        blueLabel.text = blueSlider.value.description
     }
     
     @IBAction func stepperPressed(_ sender: UIStepper) {
+        view.backgroundColor = UIColor(red: CGFloat(redSlider!.value), green: CGFloat(greenSlider!.value), blue: CGFloat(blueSlider!.value), alpha: CGFloat(sender.value))
     }
     
     @IBAction func resetButton(_ sender: UIButton) {
+        //updateBackgroundColor()
+        setSliderValue()
     }
     
-   
+    
+    func updateBackgroundColor() {
+        view.backgroundColor = UIColor(red: CGFloat(theCrayonColors.red/255), green: CGFloat(theCrayonColors.green/255), blue: CGFloat(theCrayonColors.blue/255), alpha: 1)
+    }
+    
+    func setSliderValue() {
+        redSlider.value = Float(theCrayonColors.red/255)
+        blueSlider.value = Float(theCrayonColors.blue/255)
+        greenSlider.value = Float(theCrayonColors.green/255)
+    }
 }
