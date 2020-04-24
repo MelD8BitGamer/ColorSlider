@@ -7,6 +7,10 @@
 //
 
 import UIKit
+struct AppKey { //we use a constant so we dont just you app color everywhere
+    //when you persist it to the phone. So it saves it as app color
+    static let appColorKey = "background color"
+}
 
 class SettingsSlidersVC: UIViewController {
 
@@ -37,4 +41,5 @@ class SettingsSlidersVC: UIViewController {
     @IBAction func resetButton(_ sender: UIButton) {
     }
     
+   
 }

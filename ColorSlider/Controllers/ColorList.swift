@@ -9,12 +9,23 @@
 import UIKit
 
 class ColorList: UIViewController {
-    
+    //TODO: Rid notes
+    //TODO: Fix Search bar
+    //TODO: Fix prepare for segue
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var colorCollection: UICollectionView!
     
-    let crayonColors = Crayon.allTheCrayons
-    
+    var crayonColors = Crayon.allTheCrayons
+    var userQuery = "" {
+             //when the property observer that is attached to changes then DidSet gets triggered
+             didSet { //trailing closure syntax
+              if userQuery.isEmpty { //if the user types and cancels it then the search bar is empty which THEN the tableview repopulates
+            crayonColors = Crayon.allTheCrayons //this repopulates the data
+              } else {
+                crayonColors = Crayon.allTheCrayons.filter{$0.name.lowercased().contains(userQuery.lowercased())} //this filters the data based on the user query
+              }
+          }
+      }
     override func viewDidLoad() {
         super.viewDidLoad()
         colorCollection.dataSource = self
@@ -22,14 +33,30 @@ class ColorList: UIViewController {
         searchBar.delegate = self
         
     }
+    override func viewWillAppear(_ animated: Bool) { //will be
+          super.viewWillAppear(true)
+          updateAppColor()
+      }
+      
+      private func updateAppColor() { //when you store something to userdefaults it will be ANY unless you TYPECAST it
+          if let colorName = UserDefaults.standard.object(forKey: AppKey.appColorKey) as? String {
+              view.backgroundColor = UIColor(named: colorName)//this saves the color and transfer it back to the Main view form the settingsVC(this will be called in viewWillAppear
+          } else {
+              
+          }
+      }
     
+    //This is a slightly different way to segue because it is a collection cell
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let colorDetailSetting = segue.destination as? SettingsSlidersVC,
-            let indexPath = colorCollection.indexPathsForSelectedItems else {
+        guard let cell = sender as? ColorCollectionCell,
+            let indexPath = colorCollection.indexPath(for: cell),
+            let settingsVC = segue.destination as? SettingsSlidersVC else {
                 fatalError("Did not segue to SettingsSliderVC") }
-        //        colorDetailSetting.theCrayonColors = crayonColors[indexPath]
-        //        colorDetailSetting.navigationItem.title =
+        let eachCell = crayonColors[indexPath.row]
+        settingsVC.theCrayonColors = eachCell
     }
+    
+    
 }
 
 extension ColorList: UICollectionViewDataSource {
@@ -41,6 +68,7 @@ extension ColorList: UICollectionViewDataSource {
         let cell = colorCollection.dequeueReusableCell(withReuseIdentifier: "thisColorCell", for: indexPath)
         let crayons = crayonColors[indexPath.row]
         cell.backgroundColor = UIColor(red: CGFloat(crayons.red/255), green: CGFloat(crayons.green/255), blue: CGFloat(crayons.blue/255), alpha: 1)
+       // cell.setUpCell.text
         return cell
     }
     
@@ -66,5 +94,10 @@ extension ColorList: UICollectionViewDelegateFlowLayout {
 }
     
     extension ColorList: UISearchBarDelegate {
-        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+              guard let updatedUserQuery = searchBar.text else {
+                  return
+              }//this is not necessary you are being REDUNDANT!!
+              userQuery = updatedUserQuery //Set the value of means equal
+          }
 }

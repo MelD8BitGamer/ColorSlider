@@ -10,4 +10,17 @@ import UIKit
 
 class ColorCollectionCell: UICollectionViewCell {
     
+    
+    @IBOutlet weak var colorNameLabel: UILabel!
+    @IBOutlet weak var hexColorLabel: UILabel!
+    
+    func setUpCell(eachCell: Crayon) {
+        colorNameLabel.text = eachCell.name
+        hexColorLabel.text = eachCell.hex
+        colorNameLabel.textColor = .black
+        if backgroundColor == .black {
+            colorNameLabel.textColor = .white
+            hexColorLabel.textColor = .white
+        }
+    }
 }
