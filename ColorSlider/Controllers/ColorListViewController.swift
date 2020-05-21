@@ -45,7 +45,7 @@ class ColorListViewController: UIViewController {
 //        updateAppColor()
 //    }
     
-    //TODO: Is there a parameter you need for this
+  
     private func updateAppColor() { //when you store something to userdefaults it will be ANY unless you TYPECAST it
         if let colorName = UserDefaults.standard.object(forKey: AppKey.appColorKey) as? String ,
             let red = UserDefaults.standard.object(forKey: AppKey.red) as? CGFloat,

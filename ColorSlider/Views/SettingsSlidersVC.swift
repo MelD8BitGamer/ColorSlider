@@ -9,7 +9,6 @@
 import UIKit
 //TODO: Fix Slider values
 //TODO: Fix reset
-//TODO: Add a save button
 //TODO: Add Read me GIF
 //TODO: USE CUSTOM Delegate to change the background of the table view once i switch back to the collection view
 
@@ -33,6 +32,8 @@ class SettingsSlidersVC: UIViewController {
     @IBOutlet weak var brightnessStepper: UIStepper!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var resetLabel: UILabel!
+    @IBOutlet weak var saveLabel: UILabel!
+    @IBOutlet weak var saveButton: UIButton!
     
     var theCrayonColors:Crayon!
     
@@ -54,7 +55,7 @@ class SettingsSlidersVC: UIViewController {
     }
     
     @IBAction func resetButton(_ sender: UIButton) {
-        //updateBackgroundColor()
+        updateBackgroundColor()
         setSliderValue()
     }
     
