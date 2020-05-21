@@ -22,10 +22,10 @@ class ColorListViewController: UIViewController {
         }
     }
     var userQuery = "" {
-        //when the property observer that is attached to changes then DidSet gets triggered
-        didSet { //trailing closure syntax
+        didSet {
             if userQuery.isEmpty { //if the user types and cancels it then the search bar is empty which THEN the tableview repopulates
-                crayonColors = Crayon.allTheCrayons //this repopulates the data
+                //crayonColors = Crayon.allTheCrayons //this repopulates the data
+                colorCollection.reloadData()//i think this works better
             } else {
                 crayonColors = Crayon.allTheCrayons.filter{$0.name.lowercased().contains(userQuery.lowercased())} //this filters the data based on the user query
             }
@@ -38,18 +38,24 @@ class ColorListViewController: UIViewController {
         colorCollection.dataSource = self
         colorCollection.delegate = self
         searchBar.delegate = self
-        
-    }
-    override func viewWillAppear(_ animated: Bool) { //will be
-        super.viewWillAppear(true)
         updateAppColor()
     }
+//    override func viewWillAppear(_ animated: Bool) { //will be
+//        super.viewWillAppear(true)
+//        updateAppColor()
+//    }
     
+    //TODO: Is there a parameter you need for this
     private func updateAppColor() { //when you store something to userdefaults it will be ANY unless you TYPECAST it
-        if let colorName = UserDefaults.standard.object(forKey: AppKey.appColorKey) as? String {
-            view.backgroundColor = UIColor(named: colorName)//this saves the color and transfer it back to the Main view form the settingsVC(this will be called in viewWillAppear
-        } else {
+        if let colorName = UserDefaults.standard.object(forKey: AppKey.appColorKey) as? String ,
+            let red = UserDefaults.standard.object(forKey: AppKey.red) as? CGFloat,
+            let blue = UserDefaults.standard.object(forKey: AppKey.blue) as? CGFloat,
+            let green = UserDefaults.standard.object(forKey: AppKey.green) as? CGFloat {
             
+            navigationItem.title = colorName
+            colorCollection.backgroundColor = UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1.0)
+        } else {
+            navigationItem.title = "Pick a background color"
         }
     }
     
@@ -72,17 +78,16 @@ extension ColorListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = colorCollection.dequeueReusableCell(withReuseIdentifier: "thisColorCell", for: indexPath)
+        guard let cell = colorCollection.dequeueReusableCell(withReuseIdentifier: "thisColorCell", for: indexPath) as? ColorCollectionCell else { fatalError("Could not downcast to ColorCollectionCell")}
         let crayons = crayonColors[indexPath.row]
-        cell.backgroundColor = UIColor(red: CGFloat(crayons.red/255), green: CGFloat(crayons.green/255), blue: CGFloat(crayons.blue/255), alpha: 1)
-        //cell.setUpCell.text = crayons[indexPath.row]
+        cell.setUpCell(eachCell: crayons)
        
-        navigationItem.title = crayons.name
         return cell
     }
     
     
 }
+
 extension ColorListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let interItemSpacing: CGFloat = 10
@@ -100,6 +105,14 @@ extension ColorListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigationItem.title = crayonColors[indexPath.row].name
+        UserDefaults.standard.set(crayonColors[indexPath.row].name, forKey: AppKey.appColorKey)
+        UserDefaults.standard.set(crayonColors[indexPath.row].red, forKey: AppKey.red)
+        UserDefaults.standard.set(crayonColors[indexPath.row].blue, forKey: AppKey.blue)
+        UserDefaults.standard.set(crayonColors[indexPath.row].green, forKey: AppKey.green)
+    }
 }
 
 extension ColorListViewController: UISearchBarDelegate {
@@ -112,6 +125,7 @@ extension ColorListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
             colorCollection.reloadData()
+            searchBar.resignFirstResponder()//lets see if this gets rid of the keyboard
             return
         }
         userQuery = searchText

@@ -9,10 +9,16 @@
 import UIKit
 //TODO: Fix Slider values
 //TODO: Fix reset
+//TODO: Add a save button
+//TODO: Add Read me GIF
+//TODO: USE CUSTOM Delegate to change the background of the table view once i switch back to the collection view
 
 struct AppKey { //we use a constant so we dont just you app color everywhere
     //when you persist it to the phone. So it saves it as app color
     static let appColorKey = "background color"
+    static let red = "red"
+    static let blue = "blue"
+    static let green = "green"
 }
 
 class SettingsSlidersVC: UIViewController {
